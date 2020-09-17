@@ -5,7 +5,7 @@ import {
     GET_PROFILE,
     PROFILE_ERROR,
     UPDATE_PROFILE,
-    CLEAR_ACCOUNT,
+    CLEAR_PROFILE,
     ACCOUNT_DELETED,
     GET_PROFILES,
     GET_REPOS
@@ -63,9 +63,7 @@ export const getProfileById = userId => async dispatch => {
     }
 };
 
-export const getGitgubRepos = username => async dispatch => {
-    dispatch({ type: CLEAR_PROFILE });
-
+export const getGithubRepos = username => async dispatch => {
     try {
         const res = await axios.get(`/api/profile/github/${username}`);
 
@@ -220,9 +218,9 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = () => async dispatch => {
     if (window.confirm('Are you sure ? This cannot be undone!')) {
         try {
-            const res = await axios.delete(`/api/profile`);
+            await axios.delete(`/api/profile`);
 
-            dispatch({ type: CLEAR_ACCOUNT });
+            dispatch({ type: CLEAR_PROFILE });
             dispatch({ type: ACCOUNT_DELETED });
 
             dispatch(setAlert('Your account has been permanently deleted'))
