@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://Rutwik:rmus2008$@cluster0.1np50.mongodb.net/mernL1?retryWrites=true&w=majority",
+    "jwtSecret": "mysecretcode",
+    "githubClientId": "29a41b98203398f7c7f9",
+    "githubSecret": "c845d2cf13c590049ea33e3de5ee1d2978d0d656"
+}
