@@ -5,6 +5,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 const { check, validationResult } = require('express-validator');
 
 router.get('/me', auth, async (req, res) => {
@@ -60,11 +61,11 @@ router.post('/', [auth, [
     }
 
     profileFields.social = {}
-    if (youtube) profileFields.youtube = youtube;
-    if (twitter) profileFields.youtube = youtube;
-    if (facebook) profileFields.youtube = youtube;
-    if (linkedin) profileFields.youtube = youtube;
-    if (instagram) profileFields.youtube = youtube;
+    if (youtube) profileFields.social.youtube = youtube;
+    if (twitter) profileFields.social.twitter = twitter;
+    if (facebook) profileFields.social.facebook = facebook;
+    if (linkedin) profileFields.social.linkedin = linkedin;
+    if (instagram) profileFields.social.instagram = instagram;
 
     try {
         let profile = await Profile.findOne({ user: req.user.id });
@@ -101,6 +102,8 @@ router.get('/', async (req, res) => {
 
 router.get('/user/:user_id', async (req, res) => {
     try {
+
+        await Post.deleteMany({ user: req.user.id });
 
         const profile = await Profile.find({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
 
